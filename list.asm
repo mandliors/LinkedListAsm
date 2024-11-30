@@ -7,15 +7,15 @@
 section .rodata
     list_opener_string      db "[ ", 0
     list_closer_string      db "]" , 10, 0
-	list_print_format		db "%d ", 0
+    list_print_format       db "%d ", 0
 
 
-section	.text
+section .text
     extern malloc
     extern free
-	extern printf
+    extern printf
 	
-	global list_createNode  ; list_createNode(node** dest, int value)
+    global list_createNode  ; list_createNode(node** dest, int value)
     global list_pushFront   ; list_pushFront(node** list, int value)
     global list_pushBack    ; list_pushBack(node** list, int value)
     global list_print       ; list_print(node* list)
@@ -23,14 +23,14 @@ section	.text
 
 
 list_createNode:
-	push	ebp
-	mov		ebp, esp
+    push    ebp
+    mov     ebp, esp
 
     push    8
     call    malloc              ; malloc 8 bytes for the new node
     add     esp, 4
 
-	mov     ecx, dword [ebp+8]  ; node** dest
+    mov     ecx, dword [ebp+8]  ; node** dest
     mov     edx, dword [ebp+12] ; int value
 
     mov     dword [ecx], eax    ; *dest = node
@@ -38,14 +38,14 @@ list_createNode:
     lea     eax, dword [eax+4]  
     mov     dword [eax], 0      ; node->next = NULL
 
-	mov		esp, ebp
-	pop		ebp
+    mov     esp, ebp
+    pop     ebp
     ret
 
 
 list_pushFront:
-	push	ebp
-	mov		ebp, esp
+    push    ebp
+    mov     ebp, esp
 
     sub     esp, 4              ; allocate 4 bytes for the new node
 
@@ -68,14 +68,14 @@ list_pushFront:
 
     add     esp, 4              ; clean up stack
 
-	mov		esp, ebp
-	pop		ebp
+    mov     esp, ebp
+    pop     ebp
     ret
 
 
 list_pushBack:
-    push	ebp
-	mov		ebp, esp
+    push    ebp
+    mov     ebp, esp
 
     sub     esp, 4              ; allocate 4 bytes for the new node
 
@@ -104,8 +104,8 @@ _list_pushBack_loop_start:
 
     add     esp, 4              ; clean up stack
 
-	mov		esp, ebp
-	pop		ebp
+    mov     esp, ebp
+    pop     ebp
     ret
 
 _list_pushBack_empty:
